@@ -6,21 +6,20 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: orderdb
+      MYSQL_DATABASE: 18fx_assessment
     ports:
-      - "3306:3306"
+      - "3307:3306"
     platform: linux/amd64 # Optional: support for ARM/Intel
 
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.12-management
     restart: always
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    platform: linux/amd64
+      RABBITMQ_DEFAULT_PASS: guest    
 
   order-service:
     build: ./order-service
@@ -33,7 +32,7 @@ services:
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USERNAME=root
-      - DB_PASSWORD=
+      - DB_PASSWORD=root
       - DB_DATABASE=18fx_assessment
       - RABBITMQ_URL=amqp://rabbitmq
 
@@ -46,7 +45,7 @@ services:
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USERNAME=root
-      - DB_PASSWORD=
+      - DB_PASSWORD=root
       - DB_DATABASE=18fx_assessment
       - RABBITMQ_URL=amqp://rabbitmq
 
